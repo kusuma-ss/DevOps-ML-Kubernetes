@@ -12,7 +12,7 @@ dockerpath="kusumass/flaskapplication:latest"
 
 kubectl run "flasklearnapplication"  \
     --image="$dockerpath"\
-    --port=80 --labels app="MLapp"
+    --port=80 --labels app="flasklearnapplication"
 
 
 # Step 3:
