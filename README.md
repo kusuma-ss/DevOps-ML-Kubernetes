@@ -2,54 +2,119 @@
 
 ## Project Overview
 
-In this project, you will apply the skills you have acquired in this course to operationalize a Machine Learning Microservice API
+In this project, we are making use of CircleCI (for CI/CD), Dockers and Kubernetes tools to operationalize a Machine Learning (ML) model as a Microservice API
 
-You are given a pre-trained, `sklearn` model that has been trained to predict housing prices in Boston according to several features, such as average rooms in a home and data about highway access, teacher-to-pupil ratios, and so on. You can read more about the data, which was initially taken from Kaggle, on [the data source site](https://www.kaggle.com/c/boston-housing). This project tests your ability to operationalize a Python flask app—in a provided file, `app.py`—that serves out predictions (inference) about housing prices through API calls. This project could be extended to any pre-trained machine learning model, such as those for image recognition and data labeling.
+The ML model is pre-trained using `sklearn` for pedicting housing price in Boston based on certain features.
 
-### Project Tasks
+The ML model is wrapped as a python flask-app and uses REST API
 
-Your project goal is to operationalize this working, machine learning microservice using [kubernetes](https://kubernetes.io/), which is an open-source system for automating the management of containerized applications. In this project you will:
+Use the following steps to operationalize the ML model for inference.
 
-* Test your project code using linting
-* Complete a Dockerfile to containerize this application
-* Deploy your containerized application using Docker and make a prediction
-* Improve the log statements in the source code for this application
-* Configure Kubernetes and create a Kubernetes cluster
-* Deploy a container using Kubernetes and make a prediction
-* Upload a complete Github repo with CircleCI to indicate that your code has been tested
+## E. Create and Activate an Environment
 
-You can find a detailed [project rubric, here](https://review.udacity.com/#!/rubrics/2576/view).
+### E.1. Git and version control
 
-**The final implementation of the project will showcase your abilities to operationalize production microservices.**
+These instructions also assume you have `git` installed for working with Github from a terminal window, but if you do not, you can download that first from this [Github installation page](https://www.atlassian.com/git/tutorials/install-git).
+
+**Now, you're ready to create your local environment!**
+
+1. If you haven't already done so, clone the project repository, and navigate to the main project folder.
+
+```bash
+git clone https://github.com/udacity/DevOps_Microservices.git
+cd DevOps_Microservices/project-ml-microservice-kubernetes
+```
+
+2. Create (and activate) a new environment, named `.devops` with Python 3. If prompted to proceed with the install `(Proceed [y]/n)` type y.
+
+```bash
+python3 -m venv ~/.devops
+source ~/.devops/bin/activate
+```
+or
+
+```bash
+make setup
+```
+
+At this point your command line should look something like: `(.devops) <User>:project-ml-microservice-kubernetes<user>$`. The `(.devops)` indicates that your environment has been activated, and you can proceed with further package installations.
+
+1. Installing dependencies via project `Makefile`. Many of the project dependencies are listed in the file `requirements.txt`; these can be installed using `pip` commands in the provided `Makefile`. While in your project directory, type the following command to install these dependencies.
+
+```bash
+make install
+```
+
+Now most of the `.devops` libraries are available to you. There are a couple of other libraries that we'll be using, which can be downloaded as specified, below.
 
 ---
+### E.2. Other Libraries
 
-## Setup the Environment
+While you still have your `.devops` environment activated, you will still need to install:
+* Docker
+* Hadolint
+* Kubernetes ([Minikube](https://kubernetes.io/docs/tasks/tools/install-minikube/) if you want to run Kubernetes locally)
 
-* Create a virtualenv with Python 3.7 and activate it. Refer to this link for help on specifying the Python version in the virtualenv
+#### E.2.1. Docker
 
-python3 -m pip install --user virtualenv
+You will need to use Docker to build and upload a containerized application. If you already have this installed and created a docker account, you may skip this step.
 
-### You should have Python 3.7 available in your host
+1. You’ll need to [create a free docker account](https://hub.docker.com/signup), where you’ll choose a unique username and link your email to a docker account. **Your username is your unique docker ID.**
 
-### Check the Python path using `which python3`
+2. To install the latest version of docker, choose the Community Edition (CE) for your operating system, [on docker’s installation site](https://docs.docker.com/v17.12/install/). It is also recommended that you install the latest, **stable** release:
 
-### Use a command similar to this one
+3. After installation, you can verify that you’ve successfully installed docker by printing its version in your terminal: `docker --version`
 
-python3 -m virtualenv --python=<path-to-Python3.7> .devops
-source .devops/bin/activate
+#### E.2.2 Run Lint Checks
 
-* Run `make install` to install the necessary dependencies
+This project also must pass two lint checks; `hadolint` checks the Dockerfile for errors and `pylint` checks the `app.py` source code for errors.
 
-## Running `app.py`
+1. Install `hadolint` following the instructions, [on hadolint's page]( https://github.com/hadolint/hadolint): 
 
-1. Standalone:  `python app.py`
-2. Run in Docker:  `./run_docker.sh`
-3. Run in Kubernetes:  `./run_kubernetes.sh`
+**For Mac:**
+```bash
+brew install hadolint
+```
 
-### Kubernetes Steps
+**For Windows:**
+```bash
+scoop install hadolint
+```
 
-* Setup and Configure Docker locally
-* Setup and Configure Kubernetes locally
-* Create Flask app in Container
-* Run via kubectl
+2. In your terminal, type: `make lint` to run lint checks on the project code. If you haven’t changed any code, all requirements should be satisfied, and you should see a printed statement that rates your code (and prints out any additional comments):
+
+```bash
+------------------------------------
+Your code has been rated at 10.00/10
+```
+
+#### E.2.3 Installing Kubernetes locally
+Follow [Minikube](https://kubernetes.io/docs/tasks/tools/install-minikube/) if you want to run Kubernetes locally
+
+## R. Running ML app  
+
+Before executing any following scripts below, it is necessary to preform above steps and required environment is prepared.
+  
+  1. Run [./run_docker.sh] script to build a image from Docker file and to start an flask app listening on port 80 within the docker container which is mapped to local port 8000.
+  2. Run [./upload_docker.sh] script to upload previsously built docker image from step1 to Docker Hub.
+  3. Execute [./make_prediction.sh] to verify flask-app response (The resonse provides prediction cost of the house with specific features).
+  4. Use [./run_kubernetes.sh] to lauch app (listening on localhost 8000)with the help of Kubernetes.
+  5. To test the ML app response (make prediction of house prices using certain features) use [./make_prediction.sh]. (To obtain detail log of app response, use `kubectl logs <podname>`. Find `<podname>` from run_kubernetes.sh )
+
+# Directory/Files details in this repo
+
+Directories   | Details
+------------- | -------------
+.circleci/config.file  | Using for CI/CD
+output_txt_files/docker_out.txt | Copied the text output after calling run_docker.sh
+output_txt_files/kubernetes_out.txt |Copied the text output after calling run_kubernetes.sh
+app.py | falsk app python file
+dockerfile| It conatines steps to build image
+make_prediction.sh | It conatines prediction code
+makefile| It is used to run python lint, hadolint,setup...etc
+package-lock.json | It contains required packages for ML model
+requirements | It contains python dependences
+run_docker.sh|  This file is used to run dockerfile
+run_kubernetes.sh| This file is used to run kubernetes
+upload_docker.sh| This file contained commands to upload cdocker image to docker hub
+
