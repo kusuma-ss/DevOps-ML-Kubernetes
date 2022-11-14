@@ -1,0 +1,26 @@
+<paste log output from Docker prediction, here>
+
+step2: output 
+[2022-11-14 10:02:13,829] INFO in app: JSON payload: 
+{'CHAS': {'0': 0}, 'RM': {'0': 6.575}, 'TAX': {'0': 296.0}, 'PTRATIO': {'0': 15.3}, 'B': {'0': 396.9}, 'LSTAT': {'0': 4.98}}
+[2022-11-14 10:02:13,917] INFO in app: Inference payload DataFrame: 
+   CHAS     RM    TAX  PTRATIO      B  LSTAT
+0     0  6.575  296.0     15.3  396.9   4.98
+[2022-11-14 10:02:13,932] INFO in app: Scaling Payload: 
+   CHAS     RM    TAX  PTRATIO      B  LSTAT
+0     0  6.575  296.0     15.3  396.9   4.98
+172.17.0.1 - - [14/Nov/2022 10:02:13] "POST /predict HTTP/1.1" 200 -
+
+step3 : output [updated app.py file with prediction value]
+
+[2022-11-14 10:24:03,371] INFO in app: JSON payload: 
+{'CHAS': {'0': 0}, 'RM': {'0': 6.575}, 'TAX': {'0': 296.0}, 'PTRATIO': {'0': 15.3}, 'B': {'0': 396.9}, 'LSTAT': {'0': 4.98}}
+[2022-11-14 10:24:03,393] INFO in app: Inference payload DataFrame: 
+   CHAS     RM    TAX  PTRATIO      B  LSTAT
+0     0  6.575  296.0     15.3  396.9   4.98
+[2022-11-14 10:24:03,413] INFO in app: Scaling Payload: 
+   CHAS     RM    TAX  PTRATIO      B  LSTAT
+0     0  6.575  296.0     15.3  396.9   4.98
+[2022-11-14 10:24:03,424] INFO in app: prediction value: 
+[20.35373177134412]
+172.17.0.1 - - [14/Nov/2022 10:24:03] "POST /predict HTTP/1.1" 200 -
