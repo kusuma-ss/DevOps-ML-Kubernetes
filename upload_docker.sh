@@ -5,13 +5,14 @@
 
 # Step 1:
 # Create dockerpath
-dockerpath=kusumass/app
+dockerpath=kusumass/mlapp
 
 # Step 2:  
 # Authenticate & tag
 echo "Docker ID and Image: $dockerpath"
 docker login -u kusumass
-docker tag app kusumass/flaskapplication
+#docker tag app kusumass/flaskapplication
+docker tag app $dockerpath:version_1
 # Step 3:
 # Push image to a docker repository
-docker push kusumass/flaskapplication
+docker push $dockerpath:version_1

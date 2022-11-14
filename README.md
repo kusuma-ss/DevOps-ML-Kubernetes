@@ -4,9 +4,9 @@
 
 In this project, we are making use of CircleCI (for CI/CD), Dockers and Kubernetes tools to operationalize a Machine Learning (ML) model as a Microservice API
 
-The ML model is pre-trained using `sklearn` for pedicting housing price in Boston based on certain features.
+The ML regression model pre-trained on Kaggel dataset using `sklearn` python library.  It pedicts housing price in Boston based on certain features.
 
-The ML model is wrapped as a python flask-app and uses REST API
+The ML model is wrapped as a python flask-app and uses REST API and allows interaction with RESTful web services. Therefore, the input features for ML model is represented in a json format. This is a client request to the app (ML model) which will be running on port 80 in Docker container. Port 80 of a docker is mapped to 8000 on the localhost.
 
 Use the following steps to operationalize the ML model for inference.
 
