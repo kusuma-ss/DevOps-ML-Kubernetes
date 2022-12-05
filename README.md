@@ -1,4 +1,3 @@
-# [![CircleCI](https://dl.circleci.com/status-badge/img/gh/kusuma-ss/OperationalizeaMachineLearningMicroserviceAPI/tree/master.svg?style=svg)](https://dl.circleci.com/status-badge/redirect/gh/kusuma-ss/OperationalizeaMachineLearningMicroserviceAPI/tree/master)
 
 ## Project Overview
 
