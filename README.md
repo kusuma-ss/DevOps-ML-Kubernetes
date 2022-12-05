@@ -21,8 +21,8 @@ These instructions also assume you have `git` installed for working with Github 
 1. If you haven't already done so, clone the project repository, and navigate to the main project folder.
 
 ```bash
-git clone https://github.com/udacity/DevOps_Microservices.git
-cd DevOps_Microservices/project-ml-microservice-kubernetes
+https://github.com/kusuma-ss/OperationalizeaMachineLearningMicroserviceAPI.git
+cd OperationalizeaMachineLearningMicroserviceAPI
 ```
 
 2. Create (and activate) a new environment, named `.devops` with Python 3. If prompted to proceed with the install `(Proceed [y]/n)` type y.
@@ -37,7 +37,7 @@ or
 make setup
 ```
 
-At this point your command line should look something like: `(.devops) <User>:project-ml-microservice-kubernetes<user>$`. The `(.devops)` indicates that your environment has been activated, and you can proceed with further package installations.
+At this point your command line should look something like: `(.devops) <User>:OperationalizeaMachineLearningMicroserviceAPI<user>$`. The `(.devops)` indicates that your environment has been activated, and you can proceed with further package installations.
 
 1. Installing dependencies via project `Makefile`. Many of the project dependencies are listed in the file `requirements.txt`; these can be installed using `pip` commands in the provided `Makefile`. While in your project directory, type the following command to install these dependencies.
 
@@ -105,16 +105,13 @@ Before executing any following scripts below, it is necessary to preform above s
 
 Directories   | Details
 ------------- | -------------
-.circleci/config.file  | Using for CI/CD
-output_txt_files/docker_out.txt | Copied the text output after calling run_docker.sh
-output_txt_files/kubernetes_out.txt |Copied the text output after calling run_kubernetes.sh
-app.py | falsk app python file
-dockerfile| It conatines steps to build image
-make_prediction.sh | It conatines prediction code
-makefile| It is used to run python lint, hadolint,setup...etc
-package-lock.json | It contains required packages for ML model
-requirements | It contains python dependences
-run_docker.sh|  This file is used to run dockerfile
-run_kubernetes.sh| This file is used to run kubernetes
-upload_docker.sh| This file contained commands to upload cdocker image to docker hub
+.circleci/config.file  | Configuration file specifying CI/CD Jobs
+app.py | ML model warpped as flask application
+dockerfile| Dockerfile for containerizing ML app as microservice
+make_prediction.sh | Sample input features for making prediction of housing prices from containerized ML application
+makefile| Make file to setup, install, lint, and test the enviroment and application 
+requirements.txt | required python dependencies
+run_docker.sh|  Build Docker image and start the container serving on port 8000:80 for making predictions of housing price
+run_kubernetes.sh| Deploy a container using Kubernetes and make a prediction
+upload_docker.sh| run to push the Docker image to Docker hub
 
