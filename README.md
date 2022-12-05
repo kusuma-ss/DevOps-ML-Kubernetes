@@ -21,8 +21,8 @@ These instructions also assume you have `git` installed for working with Github 
 1. If you haven't already done so, clone the project repository, and navigate to the main project folder.
 
 ```bash
-https://github.com/kusuma-ss/OperationalizeaMachineLearningMicroserviceAPI.git
-cd OperationalizeaMachineLearningMicroserviceAPI
+https://github.com/kusuma-ss/DevOps-ML-Kubernetes.git
+cd DevOps-ML-Kubernetes
 ```
 
 2. Create (and activate) a new environment, named `.devops` with Python 3. If prompted to proceed with the install `(Proceed [y]/n)` type y.
